@@ -2,7 +2,7 @@
 
 namespace LibraryFor1DArray
 {
-   public class Class1
+   public class VariousMethods
    {
    }
 }
