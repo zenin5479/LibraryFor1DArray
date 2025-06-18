@@ -26,94 +26,101 @@ namespace LibraryFor1DArray
       public static double[] VvodArray(string path, string nameArray)
       {
          string stroka = null;
+         double[] arrayDouble = { };
          FileStream filestream = File.Open(path, FileMode.Open, FileAccess.Read);
-         StreamReader streamReader = new StreamReader(filestream);
-         while (streamReader.Peek() >= 0)
+         if (filestream == null || filestream.Length == 0)
          {
-            stroka = streamReader.ReadLine();
-            //Console.WriteLine(stroka);
+            Console.WriteLine("Ошибка при открытии файла для чтения");
          }
-
-         streamReader.Close();
-         //Console.WriteLine();
-         Console.WriteLine("Исходный строковый массив {0}", nameArray);
-         Console.WriteLine(stroka);
-
-         // Определение количества столбцов в строке разделением строки на подстроки по пробелу
-         // Символ пробела
-         char symbolSpace = ' ';
-         // Счетчик символов
-         int symbolСount = 0;
-         // Количество столбцов в строке
-         int сolumn = 0;
-         if (stroka != null)
+         else
          {
-            while (symbolСount < stroka.Length)
+            StreamReader streamReader = new StreamReader(filestream);
+            while (streamReader.Peek() >= 0)
             {
-               if (symbolSpace == stroka[symbolСount])
-               {
-                  сolumn++;
-               }
-
-               if (symbolСount == stroka.Length - 1)
-               {
-                  сolumn++;
-               }
-
-               symbolСount++;
+               stroka = streamReader.ReadLine();
+               //Console.WriteLine(stroka);
             }
 
-            //Console.WriteLine("Количество столбцов {0}", сolumn);
-         }
-
-         // Разделение строки на подстроки по пробелу и конвертация подстрок в double
-         Console.WriteLine("Массив вещественных чисел {0}", nameArray);
-         // Одномерный массив вещественных чисел
-         double[] arrayDouble = new double[сolumn];
-         // Построитель строк
-         StringBuilder stringModified = new StringBuilder();
-         // Счетчик символов обнуляем
-         symbolСount = 0;
-         // Количество столбцов в строке обнуляем
-         сolumn = 0;
-         if (stroka != null)
-         {
-            while (symbolСount < stroka.Length)
+            // Определение количества столбцов в строке разделением строки на подстроки по пробелу
+            // Символ пробела
+            char symbolSpace = ' ';
+            // Счетчик символов
+            int symbolСount = 0;
+            // Количество столбцов в строке
+            int сolumn = 0;
+            if (stroka != null)
             {
-               if (symbolSpace != stroka[symbolСount])
+               Console.WriteLine("Исходный строковый массив {0}", nameArray);
+               Console.WriteLine(stroka);
+               while (symbolСount < stroka.Length)
                {
-                  stringModified.Append(stroka[symbolСount]);
-               }
-               else
-               {
-                  string subLine = stringModified.ToString();
-                  arrayDouble[сolumn] = Convert.ToDouble(subLine);
-                  Console.Write(arrayDouble[сolumn] + " ");
-                  stringModified.Clear();
-                  сolumn++;
+                  if (symbolSpace == stroka[symbolСount])
+                  {
+                     сolumn++;
+                  }
+
+                  if (symbolСount == stroka.Length - 1)
+                  {
+                     сolumn++;
+                  }
+
+                  symbolСount++;
                }
 
-               if (symbolСount == stroka.Length - 1)
-               {
-                  string subLine = stringModified.ToString();
-                  arrayDouble[сolumn] = Convert.ToDouble(subLine);
-                  Console.Write(arrayDouble[сolumn]);
-                  stringModified.Clear();
-                  сolumn++;
-               }
+               //Console.WriteLine("Количество столбцов {0}", сolumn);
 
-               symbolСount++;
+               // Разделение строки на подстроки по пробелу и конвертация подстрок в double
+               Console.WriteLine("Массив вещественных чисел {0}", nameArray);
+               // Одномерный массив вещественных чисел
+               arrayDouble = new double[сolumn];
+               // Построитель строк
+               StringBuilder stringModified = new StringBuilder();
+               // Счетчик символов обнуляем
+               symbolСount = 0;
+               // Количество столбцов в строке обнуляем
+               сolumn = 0;
+               while (symbolСount < stroka.Length)
+               {
+                  if (symbolSpace != stroka[symbolСount])
+                  {
+                     stringModified.Append(stroka[symbolСount]);
+                  }
+                  else
+                  {
+                     string subLine = stringModified.ToString();
+                     arrayDouble[сolumn] = Convert.ToDouble(subLine);
+                     Console.Write(arrayDouble[сolumn] + " ");
+                     stringModified.Clear();
+                     сolumn++;
+                  }
+
+                  if (symbolСount == stroka.Length - 1)
+                  {
+                     string subLine = stringModified.ToString();
+                     arrayDouble[сolumn] = Convert.ToDouble(subLine);
+                     Console.Write(arrayDouble[сolumn]);
+                     stringModified.Clear();
+                     сolumn++;
+                  }
+
+                  symbolСount++;
+               }
             }
+
+            streamReader.Close();
+            Console.WriteLine();
          }
 
-         Console.WriteLine();
          return arrayDouble;
       }
 
+      // Обновлен метод +
       public static double[] InputArray(double[] inputArray, int n, string nameArray)
       {
          Console.WriteLine("Массив вещественных чисел {0} для проведения поиска", nameArray);
          double[] outputArray = new double[n];
+
+
          int i = 0;
          while (i < n)
          {
@@ -128,49 +135,98 @@ namespace LibraryFor1DArray
          return outputArray;
       }
 
-      public static int SearchingNegativeNumbers(double[] inputArray, string nameArray)
+      // Обновлен метод +
+      public static double FindMax1DArray(double[] inputArray, string nameArray)
       {
-         int count = 0;
+         // Поиск максимального элемента строки (без флагов bool)
+         // Cчитаем, что максимум - это первый элемент строки
+         double max = inputArray[0];
+         int column = 0;
+         while (column < inputArray.Length)
+         {
+            if (max < inputArray[column])
+            {
+               max = inputArray[column];
+            }
+
+            column++;
+         }
+
+         Console.WriteLine("Максимум в массиве {0} равен: {1}", nameArray, max);
+         //Console.WriteLine("Максимум в массиве {0} равен: {1:f2}", nameArray, max);
+         return max;
+      }
+
+      public static double[] FindMax(double[,] inputArray)
+      {
+         // Поиск максимального элемента строки (без флагов bool)
+         double[] arrayMax = new double[inputArray.GetLength(0)];
+         int rowOut = 0;
+         int columnOut = 0;
+         while (rowOut < inputArray.GetLength(0))
+         {
+            // Cчитаем, что максимум - это первый элемент строки
+            double maxOut = inputArray[rowOut, 0];
+            while (columnOut < inputArray.GetLength(1))
+            {
+               if (maxOut < inputArray[rowOut, columnOut])
+               {
+                  maxOut = inputArray[rowOut, columnOut];
+               }
+
+               columnOut++;
+            }
+
+            arrayMax[rowOut] = maxOut;
+            //Console.WriteLine("Максимум в строке {0} равен: {1}", rowOut, maxOut);
+            columnOut = 0;
+            rowOut++;
+         }
+
+         Console.WriteLine("Массив максимальных значений строк");
+         int indexMax = 0;
+         while (indexMax < arrayMax.Length)
+         {
+            Console.Write("{0} ", arrayMax[indexMax]);
+            indexMax++;
+         }
+
+         Console.WriteLine();
+         return arrayMax;
+      }
+
+      public static double[] ReplacingMax(double[] inputArray, double max)
+      {
+         double[] outputArray = new double[inputArray.Length];
          int i = 0;
          while (i < inputArray.Length)
          {
-            if (inputArray[i] < 0)
+            // Сравниваем значения double используя метод CompareTo(Double) 
+            if (inputArray[i].CompareTo(max) == 0)
             {
-               count++;
+               outputArray[i] = inputArray[i];
             }
+            else
+            {
+               outputArray[i] = i;
+            }
+
+            // Сравниваем значения double используя метод Equals(Double)
+            //if (inputArray[i].Equals(max))
+            //{
+            //   outputArray[i] = inputArray[i];
+            //}
+            //else
+            //{
+            //   outputArray[i] = i;
+            //}
 
             i++;
          }
 
-         Console.WriteLine("В массиве {0} отрицательных элементов: {1}", nameArray, count);
-         if (count == 0)
-         {
-            Console.WriteLine("В массиве {0} нет отрицательных элементов", nameArray);
-         }
-
-         return count;
+         return outputArray;
       }
 
-      public static void ComparisonValue(int a, int b, int c)
-      {
-         if (a == b && a == c)
-         {
-            Console.WriteLine("Отрицательных элементов в массивах A, В, С равное количество");
-         }
-         if (a < b && a < c)
-         {
-            Console.WriteLine("Отрицательных элементов меньше в массиве A");
-         }
-         if (b < a && b < c)
-         {
-            Console.WriteLine("Отрицательных элементов меньше в массиве B");
-         }
-         if (c < a && c < b)
-         {
-            Console.WriteLine("Отрицательных элементов меньше в массиве C");
-         }
-      }
-      
       public static bool FindZero(double[] inputArray, string nameArray)
       {
          double numbercomparison = 0;
@@ -218,16 +274,16 @@ namespace LibraryFor1DArray
          while (i < inputArray.Length)
          {
             // Сравниваем значения double используя метод CompareTo(Double) 
-            //if (inputArray[i].CompareTo(numbercomparison) < 0)
-            //{
-            //   inputArray[i] = i;
-            //}
-
-            // Сравниваем значения double используя оператор равенства ==
-            if (inputArray[i] < numbercomparison)
+            if (inputArray[i].CompareTo(numbercomparison) < 0)
             {
                inputArray[i] = i;
             }
+
+            // Сравниваем значения double используя оператор равенства ==
+            //if (inputArray[i] < numbercomparison)
+            //{
+            //   inputArray[i] = i;
+            //}
 
             i++;
          }
@@ -242,7 +298,6 @@ namespace LibraryFor1DArray
          File.AppendAllLines(filePath, stringArray);
       }
 
-      // Обновлен метод +
       public static int SearchingNull(double[] inputArray, string nameArray)
       {
          double numbercomparison = 0;
@@ -350,7 +405,50 @@ namespace LibraryFor1DArray
          }
       }
 
+      public static void ComparisonValue(int a, int b, int c)
+      {
+         if (a == b && a == c)
+         {
+            Console.WriteLine("Отрицательных элементов в массивах A, В, С равное количество");
+         }
+         if (a < b && a < c)
+         {
+            Console.WriteLine("Отрицательных элементов меньше в массиве A");
+         }
+         if (b < a && b < c)
+         {
+            Console.WriteLine("Отрицательных элементов меньше в массиве B");
+         }
+         if (c < a && c < b)
+         {
+            Console.WriteLine("Отрицательных элементов меньше в массиве C");
+         }
+      }
+
       public static int SearchingNegative(double[] inputArray, string nameArray)
+      {
+         int count = 0;
+         int i = 0;
+         while (i < inputArray.Length)
+         {
+            if (inputArray[i] < 0)
+            {
+               count++;
+            }
+
+            i++;
+         }
+
+         Console.WriteLine("В массиве {0} отрицательных элементов: {1}", nameArray, count);
+         if (count == 0)
+         {
+            Console.WriteLine("В массиве {0} нет отрицательных элементов", nameArray);
+         }
+
+         return count;
+      }
+
+      public static int SearchingNegativeNumbers(double[] inputArray, string nameArray)
       {
          int count = 0;
          int i = 0;
@@ -498,7 +596,7 @@ namespace LibraryFor1DArray
          return outputArray;
       }
 
-      public static double[] FindMax(double[,] inputArray)
+      public static double[] FindMax2DArray(double[,] inputArray)
       {
          // Поиск максимального элемента строки (без флагов bool)
          double[] arrayMax = new double[inputArray.GetLength(0)];
@@ -536,7 +634,7 @@ namespace LibraryFor1DArray
          return arrayMax;
       }
 
-      // Обновлен метод + 
+      // Обновлен метод +
       public static string[] VivodStringArray(double[] inputArray)
       {
          // Объединение одномерного массива максимальных значений строк double[]
