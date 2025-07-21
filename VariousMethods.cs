@@ -6,23 +6,6 @@ namespace LibraryFor1DArray
 {
    public class VariousMethods
    {
-      public static int NumberArrayElements(string nameArray)
-      {
-         int n;
-         do
-         {
-            Console.WriteLine("Введите количество элементов массива {0}", nameArray);
-            int.TryParse(Console.ReadLine(), out n);
-            //n = Convert.ToInt32(Console.ReadLine());
-            if (n <= 0 || n > 20)
-            {
-               Console.WriteLine("Введено не верное значение");
-            }
-         } while (n <= 0 || n > 20);
-
-         return n;
-      }
-
       public static double[] VvodArray(string path, string nameArray)
       {
          string stroka = null;
@@ -334,92 +317,6 @@ namespace LibraryFor1DArray
          }
 
          return count;
-      }
-
-      public static void ComparisonNull(int a, int b, int c)
-      {
-         string[] name = { "A", "B", "C" };
-         int[] arr = { a, b, c };
-         // Поиск минимального элемента строки (без флагов bool)
-         int min = arr[0];
-         int counter = 0;
-         while (counter < arr.Length)
-         {
-            // Cчитаем, что минимум - это первый элемент строки
-            if (arr[counter] < min)
-            {
-               min = arr[counter];
-            }
-
-            counter++;
-         }
-         Console.WriteLine("Минимум  равен: {0}", min);
-
-         // Проверка массивов на минимум элементов
-         counter = 0;
-         while (counter < arr.Length)
-         {
-            // Cчитаем, что минимум - это первый элемент строки
-            if (arr[counter] == min)
-            {
-               Console.WriteLine("В массиве {0} минимальное количество элементов равных нулю: {1}", name[counter], min);
-            }
-
-            counter++;
-         }
-      }
-
-      public static void ComparisonNegative(int a, int b, int c)
-      {
-         string[] name = { "A", "B", "C" };
-         int[] arr = { a, b, c };
-         // Поиск минимального элемента строки (без флагов bool)
-         int min = arr[0];
-         int counter = 0;
-         while (counter < arr.Length)
-         {
-            // Cчитаем, что минимум - это первый элемент строки
-            if (arr[counter] < min)
-            {
-               min = arr[counter];
-            }
-
-            counter++;
-         }
-         Console.WriteLine("Наименьшее количество отрицательных элементов в массивах {0}, {1}, {2} равно: {3}", name[0], name[1], name[2], min);
-
-         // Проверка массивов на минимум элементов
-         counter = 0;
-         while (counter < arr.Length)
-         {
-            // Cчитаем, что минимум - это первый элемент строки
-            if (arr[counter] == min)
-            {
-               Console.WriteLine("В массиве {0} наименьшее количество отрицательных элементов", name[counter]);
-            }
-
-            counter++;
-         }
-      }
-
-      public static void ComparisonValue(int a, int b, int c)
-      {
-         if (a == b && a == c)
-         {
-            Console.WriteLine("Отрицательных элементов в массивах A, В, С равное количество");
-         }
-         if (a < b && a < c)
-         {
-            Console.WriteLine("Отрицательных элементов меньше в массиве A");
-         }
-         if (b < a && b < c)
-         {
-            Console.WriteLine("Отрицательных элементов меньше в массиве B");
-         }
-         if (c < a && c < b)
-         {
-            Console.WriteLine("Отрицательных элементов меньше в массиве C");
-         }
       }
 
       public static int SearchingNegative(double[] inputArray, string nameArray)
