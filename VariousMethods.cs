@@ -1782,10 +1782,5 @@ namespace LibraryFor1DArray
          string filePath = AppContext.BaseDirectory + nameFile;
          File.WriteAllLines(filePath, arrayString);
       }
-
-
-
-
-
    }
 }
