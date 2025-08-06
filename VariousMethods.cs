@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LibraryFor1DArray
 {
-   public class MethodsFor1DArray
+   public class ethodsFor1DArray
    {
       public static int EnterSetValue()
       {
